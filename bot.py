@@ -13,7 +13,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if str(message.channel) == 'the-general-space' and 'twitch.tv/' in message.content:
+    if str(message.channel) == 'general' and 'twitch.tv/' in message.content:
         await message.channel.purge(limit=1)
         await message.channel.send('Pls post links in their respective advertise channels. Thank you')
 
