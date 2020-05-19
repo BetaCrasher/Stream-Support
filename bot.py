@@ -20,13 +20,15 @@ async def on_message(message):
 
 @client.event
 async def dm_all(ctx, *, messege=None):
+    print("in all")
     if messege != None:
         members = ctx.guild.members
         for member in members:
             try:
-                await members.send(messege)
+                await member.send(messege)
             except:
                 print('couldnt DM'+member.name)
-
+    else:
+        ctx.channel.send('no args provided')
     
 client.run('NzEyMDQ0MDY4MDU3OTA3MjYx.XsL0zQ.dlE3ftN604JziBIEo2Ijy3Ucsns')
