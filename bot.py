@@ -57,4 +57,4 @@ async def ping(ctx):
 async def purge(ctx):
     await ctx.purge
 
-client.run('NzEyMDQ0MDY4MDU3OTA3MjYx.XsRQOw.17SE87uG3atxgwNoNrxfrCJIy2M')
+client.run('Your Token Here')
