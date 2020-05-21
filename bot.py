@@ -33,7 +33,7 @@ async def dm_all(ctx, *, args=None):
                 try:
                     await member.send(args)
                 except:
-                    print('couldnt DM' + str(member.name))
+                    print('couldnt DM ' + str(member.name))
     else:
         await ctx.channel.send('no args provided')
 
