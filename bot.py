@@ -6,11 +6,12 @@ from discord import User
 client = commands.Bot(command_prefix='.')
 
 
-#On start commands go here
+# On start commands go here
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Game(name='Doing Bot things'))
     print('Bot is online. :)')
+
 
 # Removes twitch links from general chat
 @client.event
@@ -24,43 +25,50 @@ async def on_message(message):
 
     await client.process_commands(message)
 
+
 # Command to DM all the users on the server
 @client.command()
 async def dm_all(ctx, *, args=None):
     if args is not None:
         # print(ctx.author+'pinged everyone: "'+args+'"')
-        if ctx.message.author.guild_permissions.administrator:
+        if ctx.author.guild_permissions.administrator:
             members = ctx.guild.members
             for member in members:
                 try:
                     await member.send(args)
                 except:
-                    print('couldnt DM ' + str(member.name))
+                    print('Could not DM ' + str(member.name))
         else:
-            await ctx.channel.send('You are not allowed to use this command')
+            await ctx.send('You are not allowed to use this command')
     else:
-        await ctx.channel.send('no args provided')
-    await ctx.message.channel.purge(limit=1)
+        await ctx.send('no args provided')
+    await ctx.channel.purge(limit=1)
+
 
 # Command to DM a spesific user on the server
 @client.command()
 async def dm(ctx, users: Greedy[User], *, mess=None):
     if users is not None and mess is not None:
-        if ctx.message.author.guild_permissions.administrator:
+        if ctx.author.guild_permissions.administrator:
             for user in users:
                 await user.send(mess)
         else:
-            ctx.channel.send('You are not allowed to use this command')
-    await ctx.message.channel.purge(limit=1)
+            await ctx.send('You are not allowed to use this command')
+    await ctx.channel.purge(limit=1)
+
 
 # Test command
 @client.command()
 async def ping(ctx):
-    await ctx.channel.send('pong!')
+    await ctx.send('pong')
 
-# Deletes all the messeges in the channel
+
+# Deletes all the messages in the channel
 @client.command()
 async def purge(ctx):
-    await ctx.purge
+    if ctx.message.author.guild_permissions.administrator:
+        await ctx.channel.purge()
+    else:
+        await ctx.send('You can\'t use this command')
 
 client.run('Your Token Here')
