@@ -6,13 +6,13 @@ from discord import User
 client = commands.Bot(command_prefix='.')
 
 
-
+#On start commands go here
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Game(name='Doing Bot things'))
     print('Bot is online. :)')
 
-
+# Removes twitch links from general chat
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -24,7 +24,7 @@ async def on_message(message):
 
     await client.process_commands(message)
 
-
+# Command to DM all the users on the server
 @client.command()
 async def dm_all(ctx, *, args=None):
     if args is not None:
@@ -37,12 +37,12 @@ async def dm_all(ctx, *, args=None):
                 except:
                     print('couldnt DM ' + str(member.name))
         else:
-            await 
+            await ctx.channel.send('You are not allowed to use this command')
     else:
         await ctx.channel.send('no args provided')
     await ctx.message.channel.purge(limit=1)
 
-
+# Command to DM a spesific user on the server
 @client.command()
 async def dm(ctx, users: Greedy[User], *, mess=None):
     if users is not None and mess is not None:
@@ -53,12 +53,12 @@ async def dm(ctx, users: Greedy[User], *, mess=None):
             ctx.channel.send('You are not allowed to use this command')
     await ctx.message.channel.purge(limit=1)
 
-
+# Test command
 @client.command()
 async def ping(ctx):
     await ctx.channel.send('pong!')
 
-
+# Deletes all the messeges in the channel
 @client.command()
 async def purge(ctx):
     await ctx.purge
