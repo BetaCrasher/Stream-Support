@@ -8,6 +8,7 @@ client = commands.Bot(command_prefix='.')
 
 @client.event
 async def on_ready():
+    await client.change_presence(activity=discord.Game(name='Doing Bot things'))
     print('Bot is online. :)')
 
 
@@ -34,8 +35,11 @@ async def dm_all(ctx, *, args=None):
                     await member.send(args)
                 except:
                     print('couldnt DM ' + str(member.name))
+        else:
+            await 
     else:
         await ctx.channel.send('no args provided')
+    await ctx.message.channel.purge(limit=1)
 
 
 @client.command()
@@ -46,6 +50,7 @@ async def dm(ctx, users: Greedy[User], *, mess=None):
                 await user.send(mess)
         else:
             ctx.channel.send('You are not allowed to use this command')
+    await ctx.message.channel.purge(limit=1)
 
 
 @client.command()
