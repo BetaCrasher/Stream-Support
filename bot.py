@@ -66,7 +66,7 @@ async def ping(ctx):
 # Deletes all the messages in the channel
 @client.command()
 async def purge(ctx):
-    if ctx.message.author.guild_permissions.administrator:
+    if ctx.author.guild_permissions.administrator:
         await ctx.channel.purge()
     else:
         await ctx.send('You can\'t use this command')
